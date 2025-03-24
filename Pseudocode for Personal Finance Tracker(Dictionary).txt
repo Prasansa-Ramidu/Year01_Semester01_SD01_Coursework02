@@ -1,0 +1,157 @@
+# Import JSON module
+Import JSON module
+# Import datetime module
+Import datetime module
+
+# Global dictionary to store transactions
+Define transactions as an empty dictionary
+
+# Define file path for JSON data
+Define file_path as "transactions.json"
+
+# Function to load transactions from a JSON file
+Function load_transactions():
+    Try:
+        Open file at file_path in read mode as file
+        Read data from the file
+        If data is not empty:
+            Parse the JSON data into the transactions dictionary
+        Else:
+            Set transactions as an empty dictionary
+    Except FileNotFoundError:
+        Print "Transactions file not found. Creating new transactions dictionary."
+        Set transactions as an empty dictionary
+    Except JSONDecodeError:
+        Print "Error! JSON data in the file is not in a correct format"
+
+# Function to save transactions to a JSON file
+Function save_transactions():
+    Try:
+        Open file at file_path in write mode as file
+        Write transactions dictionary as JSON data with indentation to the file
+        Print "Transactions saved successfully."
+    Except Exception as e:
+        Print "Error occurred while saving transactions:", e
+
+# Function to read bulk transactions from a file and update transactions dictionary
+Function read_bulk_transactions_from_file(filename):
+    Try:
+        Open file with filename in read mode as file
+        Load JSON data from the file into bulk_data dictionary
+        For each key-value pair in bulk_data:
+            Print the key and value
+    Except FileNotFoundError:
+        Print "File not found."
+    Except JSONDecodeError:
+        Print "Error decoding JSON data from file."
+    Except Exception as e:
+        Print "An error occurred:", e
+
+# Function to add a transaction to the transactions dictionary
+Function add_transaction():
+    Try:
+        Get transaction type from user input
+	If transaction type != "Salary" and transaction type != "Groceries":
+		Raise Exception"Invalid transaction type"
+	Get transaction amount from user input
+	Get transaction date str from the user input
+        Validate date format
+        Create a transaction dictionary with amount and date
+        If transaction type exists in transactions:
+            Append the transaction to the list of transactions for that type
+        Else:
+            Create a new list with the transaction as its element for the transaction type
+        Print "Transaction added successfully."
+        Call save_transactions()
+    Except ValueError:
+        Print "Invalid input. Please enter a valid number for amount or date in format YYYY-MM-DD."
+    Except Exception as e:
+	Print "An error occurred:", e
+
+# Function to view all transactions in the transactions dictionary
+Function view_transactions():
+    Try:
+        For each transaction type and its transactions list in transactions:
+            Print transaction type
+            For each transaction in transactions list:
+                Print amount and date of the transaction
+    Except Exception as e:
+        Print "An error occurred:", e
+
+# Function to update a transaction in the transactions dictionary
+Function update_transaction():
+    Try:
+        Get transaction type and index to update from user input
+        If transaction type exists in transactions:
+            Print transactions for the type
+            Get updated amount and date from user input
+            Validate date format
+            Update the transaction at the specified index with the new amount and date
+            Print "Transaction updated successfully."
+            Call save_transactions()
+        Else:
+            Print "No transactions found for transaction type"
+    Except (IndexError, ValueError):
+        Print "Invalid input or index out of range."
+
+# Function to delete a transaction from the transactions dictionary
+Function delete_transaction():
+    Try:
+        Get transaction type and index to delete from user input
+        If transaction type exists in transactions:
+            Print transactions for the type
+            Delete the transaction at the specified index
+            Print "Transaction deleted successfully."
+            Call save_transactions()
+        Else:
+            Print "No transactions found for transaction type"
+    Except (IndexError, ValueError):
+        Print "Invalid input or index out of range."
+
+# Function to display summary of transactions
+Function display_summary():
+    Try:
+        For each transaction type and its transactions list in transactions:
+            Calculate total amount of transactions
+            Print transaction type and total amount
+    Except Exception as e:
+        Print "An error occurred:", e
+
+# Main menu function to handle user interactions
+Function main_menu():
+    Call load_transactions("transactions.json")
+    Infinite loop:
+      Try:
+        Print main menu options
+        Get user choice
+        If choice is "1":
+            Call add_transaction()
+        Else if choice is "2":
+            Call view_transactions()
+        Else if choice is "3":
+            Call update_transaction()
+        Else if choice is "4":
+            Call delete_transaction()
+        Else if choice is "5":
+            Call display_summary()
+        Else if choice is "6":
+            Get filename from user input
+            Call read_bulk_transactions_from_file(filename)
+        Else if choice is "7":
+            Call save_transactions()
+            Print "Good Bye!Exiting From the Personal Finance Tracker"
+            Break the loop
+        Else:
+            Print "Invalid choice. Please try again."
+       Except Exception as e:
+	print "An unexpected error occurred:", e
+    End loop
+
+# Start of the program
+If __name__ is "__main__":
+    Call main_menu()
+
+
+
+
+
